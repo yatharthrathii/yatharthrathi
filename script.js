@@ -88,7 +88,7 @@ function sendEmail() {
     submitButton.innerHTML = "Sending...";
 
     Email.send({
-        SecureToken:"cb9ea07b-3709-4613-9441-042d52e30a40",
+        SecureToken: "d076983f-8ff9-480a-a8e0-a4edd20dc3d9",
         // Host: "smtp.elasticemail.com",
         // Username: "ap2518422@gmail.com",
         // Password: "742C22C7012BDC88406729047AA734BF44CF",
