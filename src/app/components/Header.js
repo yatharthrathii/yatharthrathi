@@ -37,7 +37,7 @@ export default function Header() {
                         whileHover={{ rotate: -2 }}
                         className="text-xl font-bold tracking-wide text-shadow-white"
                     >
-                        <span className="lg:text-2xl sm:text-xl">&lt;&gt;</span> Yatharth.Dev
+                        Yatharth.Dev
                     </motion.div>
 
                     <nav className="hidden md:flex gap-8" aria-label="Primary navigation">
