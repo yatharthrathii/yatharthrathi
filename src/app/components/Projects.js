@@ -35,7 +35,7 @@ export default function Projects() {
             tech: ["React.js", "TailwindCSS"],
             desc: "Flashcard app with smart repetition for faster learning.",
             img: "/Recallify.png",
-            live: "https://recallify-ashen.vercel.app",
+            live: "https://recallify-fawn.vercel.app",
             github: "https://github.com/yatharthrathii/Recallify",
         },
         {
