@@ -31,13 +31,13 @@ export function SelectionFrame({ children, name }: { children: ReactNode; name: 
         <span className={`${HANDLE} -bottom-1 -right-1`} />
         <span
           ref={dimRef}
-          className="absolute left-1/2 top-[calc(100%+7px)] -translate-x-1/2 whitespace-nowrap rounded-[3px] bg-coral px-1.5 py-[3px] font-mono text-[9px] font-medium leading-none tracking-normal text-white opacity-0 transition-opacity"
+          className="absolute left-1/2 top-[calc(100%+7px)] -translate-x-1/2 whitespace-nowrap rounded-[3px] bg-coral-ink px-1.5 py-[3px] font-mono text-[10px] font-medium leading-none tracking-normal text-white opacity-0 transition-opacity"
         />
         <span className="absolute right-[6%] top-[calc(100%-2px)] flex items-start">
           <svg width="13" height="15" viewBox="0 0 13 15" className="shrink-0">
             <path d="M1 1l3.6 12 2.2-4.9L12 6.6z" fill="#111318" stroke="#fff" strokeWidth="1" strokeLinejoin="round" />
           </svg>
-          <span className="ml-0.5 mt-3 whitespace-nowrap rounded-[3px] bg-ink px-1.5 py-[3px] font-mono text-[9px] font-medium leading-none tracking-normal text-white">{name}</span>
+          <span className="ml-0.5 mt-3 whitespace-nowrap rounded-[3px] bg-ink px-1.5 py-[3px] font-mono text-[10px] font-medium leading-none tracking-normal text-white">{name}</span>
         </span>
       </span>
     </span>

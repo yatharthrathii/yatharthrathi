@@ -60,13 +60,13 @@ export function RequestCard() {
 
   return (
     <div className="rounded-xl border border-line bg-card p-3 text-left shadow-[0_18px_40px_-28px_rgba(17,19,24,.45)]">
-      <div className="flex items-center justify-between font-mono text-[10px] leading-none text-faint">
+      <div className="flex items-center justify-between font-mono text-[11px] leading-none text-faint">
         <span>live component</span>
-        <span className="text-coral">{"<Request />"}</span>
+        <span className="text-coral-ink">{"<Request />"}</span>
       </div>
 
       <div className="mt-2.5 flex items-center gap-2.5">
-        <div role="radiogroup" aria-label="HTTP method" className="flex shrink-0 rounded-lg bg-paper p-0.5 font-mono text-[11px] leading-none">
+        <div role="radiogroup" aria-label="HTTP method" className="flex shrink-0 rounded-lg bg-paper p-0.5 font-mono text-xs leading-none">
           {METHODS.map((m) => (
             <button
               key={m}
@@ -77,13 +77,13 @@ export function RequestCard() {
                 touched.current = true;
                 setMethod(m);
               }}
-              className={`rounded-md px-2.5 py-1.5 transition-colors ${method === m ? "bg-card text-ink shadow-[0_1px_2px_rgba(17,19,24,.15)]" : "text-muted hover:text-ink"}`}
+              className={`rounded-md px-3 py-2 transition-colors ${method === m ? "bg-card text-ink shadow-[0_1px_2px_rgba(17,19,24,.15)]" : "text-muted hover:text-ink"}`}
             >
               {m}
             </button>
           ))}
         </div>
-        <code className="truncate font-mono text-[11px] text-muted">{ENDPOINT[method]}</code>
+        <code className="truncate font-mono text-xs text-muted">{ENDPOINT[method]}</code>
       </div>
 
       <button
@@ -94,7 +94,7 @@ export function RequestCard() {
         }}
         aria-disabled={state.kind === "pending"}
         className={`mt-2.5 flex h-9 w-full items-center justify-center gap-2 rounded-lg text-[13px] font-medium text-white transition-colors duration-300 ${
-          state.kind === "done" ? "bg-leaf" : state.kind === "pending" ? "bg-ink/80" : "bg-ink hover:bg-coral"
+          state.kind === "done" ? "bg-leaf-ink" : state.kind === "pending" ? "bg-ink/80" : "bg-ink hover:bg-coral"
         }`}
       >
         <span aria-live="polite" className="flex items-center gap-2">
@@ -117,7 +117,7 @@ export function RequestCard() {
         </span>
       </button>
 
-      <p className="mt-2 font-mono text-[10px] leading-none text-faint">crosses the api line · lands in the terminal</p>
+      <p className="mt-2.5 font-mono text-[11px] leading-tight text-faint">crosses the api line · lands in terminal</p>
     </div>
   );
 }

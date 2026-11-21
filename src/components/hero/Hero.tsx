@@ -10,9 +10,9 @@ function Side({ side }: { side: "frontend" | "backend" }) {
   const s = hero[side];
   const isFront = side === "frontend";
   return (
-    <div className={`grid w-full max-w-[380px] grid-cols-[minmax(0,1fr)] gap-[18px] justify-self-center text-center lg:text-left xl:pt-[max(0px,calc(6vw-28px))] ${isFront ? "lg:justify-self-end" : "lg:justify-self-start"}`}>
+    <div className={`grid w-full max-w-[380px] grid-cols-[minmax(0,1fr)] gap-[18px] justify-self-center text-center lg:text-left xl:pt-[max(0px,calc(6vw-28px))] ${isFront ? "lg:justify-self-end xl:order-1" : "lg:justify-self-start xl:order-3"}`}>
       <Reveal intro delay={isFront ? 0.1 : 0.22}>
-        <span className={`eyebrow justify-center lg:justify-start ${isFront ? "text-coral" : "text-leaf"}`}>{s.label}</span>
+        <span className={`eyebrow justify-center lg:justify-start ${isFront ? "text-coral-ink" : "text-leaf-ink"}`}>{s.label}</span>
       </Reveal>
       <Reveal intro delay={isFront ? 0.18 : 0.3}>
         <h2 className={`font-serif text-[clamp(44px,4.9vw,84px)] font-black leading-[0.92] tracking-[-0.035em] ${isFront ? "mb-4" : ""}`}>
@@ -35,7 +35,7 @@ function Side({ side }: { side: "frontend" | "backend" }) {
       <Reveal intro delay={isFront ? 0.42 : 0.54}>
         <ul className="flex flex-wrap justify-center gap-1.5 lg:justify-start">
           {s.stack.map((t) => (
-            <li key={t} className={`chip transition-colors ${isFront ? "hover:border-coral hover:text-coral" : "hover:border-leaf hover:text-leaf"}`}>
+            <li key={t} className={`chip transition-colors ${isFront ? "hover:border-coral-ink hover:text-coral-ink" : "hover:border-leaf-ink hover:text-leaf-ink"}`}>
               {t}
             </li>
           ))}
@@ -51,8 +51,7 @@ export function Hero() {
   return (
     <>
       <section id="top" className="mx-auto grid max-w-[1560px] items-center gap-9 px-[clamp(20px,4.5vw,64px)] pb-14 pt-[84px] lg:grid-cols-2 lg:gap-x-[clamp(40px,6vw,96px)] xl:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] xl:items-start xl:gap-[clamp(24px,4vw,64px)]">
-        <Side side="frontend" />
-        <div className="order-first flex flex-col items-center lg:col-span-2 xl:order-none xl:col-span-1">
+        <div className="flex flex-col items-center lg:col-span-2 xl:order-2 xl:col-span-1">
           <ParticlePortrait
             src="/images/yatharth.webp"
             alt="Portrait of Yatharth Rathi, made of colour tiles on the left and code characters on the right. Push the tiles across the middle line and they turn into code."
@@ -67,16 +66,17 @@ export function Hero() {
               {site.role} · {site.location}
             </p>
           </Reveal>
-          <Reveal intro delay={0.4} className="mt-5 flex items-center gap-2.5">
-            <a href="#projects" className="inline-flex h-10 items-center gap-2 rounded-full bg-ink px-5 text-sm font-medium text-white transition-colors hover:bg-coral">
+          <Reveal intro delay={0.4} className="mt-5 flex flex-wrap items-center justify-center gap-2.5">
+            <a href="#projects" className="inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-full bg-ink px-5 text-sm font-medium text-white transition-colors hover:bg-coral">
               See my projects
               <span aria-hidden className="text-base leading-none">↓</span>
             </a>
-            <a href={`mailto:${site.email}`} className="inline-flex h-10 items-center rounded-full border border-line px-5 text-sm font-medium transition-colors hover:border-ink">
+            <a href={`mailto:${site.email}`} className="inline-flex h-10 items-center whitespace-nowrap rounded-full border border-line px-5 text-sm font-medium transition-colors hover:border-ink">
               Get in touch
             </a>
           </Reveal>
         </div>
+        <Side side="frontend" />
         <Side side="backend" />
       </section>
 

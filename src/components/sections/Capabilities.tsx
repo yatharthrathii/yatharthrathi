@@ -2,7 +2,7 @@ import { principles, stack } from "@/content/site";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHead } from "./SectionHead";
 
-const TONE = { coral: "text-coral", leaf: "text-leaf", ink: "text-ink" } as const;
+const TONE = { coral: "text-coral-ink", leaf: "text-leaf-ink", ink: "text-ink" } as const;
 const DOT = { coral: "bg-coral", leaf: "bg-leaf", ink: "bg-ink/25" } as const;
 
 export function Capabilities() {
@@ -30,12 +30,12 @@ export function Capabilities() {
               </h3>
               <ul className="flex flex-wrap gap-1.5">
                 {row.items.map((it) => (
-                  <li key={it} className="chip bg-card text-[12px] text-ink group-hover:bg-paper">
+                  <li key={it} className="chip bg-card text-ink group-hover:bg-paper">
                     {it}
                   </li>
                 ))}
               </ul>
-              <span className="font-mono text-[11px] text-faint">{row.note}</span>
+              <span className="font-mono text-xs text-faint">{row.note}</span>
             </Reveal>
           ))}
         </ol>
@@ -43,7 +43,7 @@ export function Capabilities() {
         <div className="mt-24 grid gap-5 md:grid-cols-3">
           {principles.map((p, i) => (
             <Reveal key={p.title} className="flex flex-col rounded-2xl border border-line bg-card p-7">
-              <span className="font-mono text-xs text-coral">Belief {String(i + 1).padStart(2, "0")}</span>
+              <span className="font-mono text-xs text-coral-ink">Belief {String(i + 1).padStart(2, "0")}</span>
               <p className="mt-10 font-serif text-[clamp(24px,2.4vw,30px)] font-extrabold leading-[1.1] tracking-[-0.02em]">{p.title}</p>
               <p className="mt-3 text-sm text-muted">{p.body}</p>
             </Reveal>

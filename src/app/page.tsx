@@ -4,7 +4,7 @@ import { Capabilities } from "@/components/sections/Capabilities";
 import { Contact } from "@/components/sections/Contact";
 import { Experience } from "@/components/sections/Experience";
 import { Projects } from "@/components/sections/Projects";
-import { education, site } from "@/content/site";
+import { degree, site } from "@/content/site";
 import { resumeHref } from "@/lib/resume";
 
 const personJsonLd = {
@@ -12,9 +12,11 @@ const personJsonLd = {
   "@type": "Person",
   name: site.name,
   url: site.url,
+  image: `${site.url}/images/yatharth-og.png`,
+  description: site.description,
   jobTitle: "Full-Stack Engineer",
   worksFor: { "@type": "Organization", name: "Codevibe Technology" },
-  alumniOf: { "@type": "CollegeOrUniversity", name: education[0].school },
+  alumniOf: { "@type": "CollegeOrUniversity", name: degree.school },
   knowsAbout: ["TypeScript", "NestJS", "Next.js", "React", "PostgreSQL", "React Native"],
   sameAs: [site.links.github, site.links.linkedin, site.links.x],
 };

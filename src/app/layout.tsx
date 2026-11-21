@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Playfair_Display, Sora } from "next/font/google";
 import { Providers } from "@/components/ui/Providers";
@@ -44,6 +45,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${playfair.variable} ${sora.variable} ${jetbrains.variable}`}>
       <body className="min-h-dvh overflow-x-clip">
         <Providers>{children}</Providers>
+        {/* Page-view counts, cookieless. Only on Vercel, where the script exists; turn on Web Analytics in the project there. */}
+        {process.env.VERCEL && <Analytics />}
       </body>
     </html>
   );

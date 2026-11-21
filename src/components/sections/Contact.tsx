@@ -28,7 +28,7 @@ export function Contact({ resumeHref }: { resumeHref: string | null }) {
             </a>
           )}
         </Reveal>
-        <Reveal className="mt-10 flex flex-wrap gap-7 text-[15px]">
+        <Reveal className="mt-8 flex flex-wrap gap-x-7 gap-y-1 text-[15px]">
           {(
             [
               ["LinkedIn", site.links.linkedin],
@@ -36,13 +36,13 @@ export function Contact({ resumeHref }: { resumeHref: string | null }) {
               ["X", site.links.x],
             ] as const
           ).map(([label, href]) => (
-            <a key={label} href={href} target="_blank" rel="noopener" className="relative text-white/80 transition-colors hover:text-white after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100">
+            <a key={label} href={href} target="_blank" rel="noopener" className="relative py-2.5 text-white/80 transition-colors hover:text-white after:absolute after:inset-x-0 after:bottom-1.5 after:h-px after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100">
               {label} ↗
             </a>
           ))}
         </Reveal>
 
-        <div className="mt-24 flex flex-wrap justify-between gap-4 border-t border-white/10 pt-6 text-[13px] text-white/45">
+        <div className="mt-24 flex flex-wrap justify-between gap-4 border-t border-white/10 pt-6 text-[13px] text-white/55">
           <p>© {year} {site.name}. Usually building late at night, with too much chai.</p>
           <p className="font-mono">Built with Next.js 16, React 19 &amp; Tailwind 4 · particles hand-written</p>
         </div>

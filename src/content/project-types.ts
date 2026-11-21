@@ -20,6 +20,18 @@ export type ProjectDetail = {
   tagline: string;
   /** Used for the page description and the opening paragraph. */
   intro: string;
+  /** The card on the home page. */
+  card: {
+    why: string;
+    what: string;
+    tags: string[];
+    image: string;
+    alt: string;
+    /** How the card frames the image: a browser window or a phone. */
+    frame: "browser" | "phone";
+    live?: string;
+    code?: string;
+  };
   meta: { label: string; value: string }[];
   links: { label: string; href: string; primary?: boolean }[];
   cover:

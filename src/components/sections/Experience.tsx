@@ -28,7 +28,7 @@ export function Experience() {
                     {e.kind && <>{e.kind} · </>}
                     <Span start={first.start} end={latest.end} />
                   </p>
-                  <p className="mt-0.5 text-sm text-white/40">{e.location}</p>
+                  <p className="mt-0.5 text-sm text-white/50">{e.location}</p>
                 </div>
 
                 <ol className={e.roles.length > 1 ? "relative before:absolute before:bottom-3 before:left-[5px] before:top-3 before:w-px before:bg-white/15" : ""}>
@@ -42,9 +42,12 @@ export function Experience() {
                       )}
                       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
                         <h4 className="text-xl font-medium leading-tight tracking-[-0.015em]">{r.title}</h4>
-                        {r.badge && <span className="rounded-full bg-coral px-2.5 py-1.5 font-mono text-[11px] leading-none">{r.badge}</span>}
+                        {r.badge && <span className="rounded-full bg-coral/15 px-2.5 py-1.5 font-mono text-xs leading-none text-coral">{r.badge}</span>}
                       </div>
-                      <Span start={r.start} end={r.end} className="mt-1 block font-mono text-[13px] text-white/50" />
+                      <p className="mt-1 font-mono text-[13px] text-white/50">
+                        {r.kind && <>{r.kind} · </>}
+                        <Span start={r.start} end={r.end} />
+                      </p>
 
                       <div className="mt-4 grid gap-5">
                         {r.groups.map((grp, gi) => (
@@ -59,7 +62,7 @@ export function Experience() {
                             </ul>
                           </div>
                         ))}
-                        {r.stack && <p className="font-mono text-xs leading-6 text-white/40">{r.stack}</p>}
+                        {r.stack && <p className="font-mono text-xs leading-6 text-white/50">{r.stack}</p>}
                       </div>
                     </li>
                   ))}
@@ -75,7 +78,7 @@ export function Experience() {
           </Reveal>
           <ul className="mt-6 border-t border-white/10">
             {education.map((e) => (
-              <Reveal key={e.degree} as="li" className="grid gap-2 border-b border-white/10 py-7 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)] md:gap-10">
+              <Reveal key={e.school} as="li" className="grid gap-2 border-b border-white/10 py-7 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)] md:gap-10">
                 <div>
                   <p className="text-[clamp(20px,2vw,24px)] font-medium leading-tight tracking-[-0.02em]">{e.school}</p>
                   <p className="mt-1 font-mono text-[13px] text-white/50">{e.when}</p>

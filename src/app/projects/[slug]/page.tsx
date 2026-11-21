@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
-import { ProjectSections } from "@/components/projects/ProjectSections";
+import { ProjectSections, sectionId } from "@/components/projects/ProjectSections";
 import { Contact } from "@/components/sections/Contact";
 import { Reveal } from "@/components/ui/Reveal";
 import { getProject, projects } from "@/content/projects";
@@ -44,17 +44,17 @@ export default async function ProjectPage({ params }: Params) {
       <main>
         <section className="container-page pb-[clamp(40px,5vw,72px)] pt-[clamp(112px,12vw,160px)]">
           <Reveal intro delay={0.05}>
-            <Link href="/#projects" className="inline-flex items-center gap-2 font-mono text-xs text-muted transition-colors hover:text-coral">
+            <Link href="/#projects" className="-my-3 inline-flex min-h-11 items-center gap-2 font-mono text-xs text-muted transition-colors hover:text-coral-ink">
               <span aria-hidden>←</span> All projects
             </Link>
           </Reveal>
 
           <Reveal intro delay={0.12} className="mt-10">
-            <span className="eyebrow text-coral">Case study · {project.kind}</span>
+            <span className="eyebrow text-coral-ink">Case study · {project.kind}</span>
             <h1 className="mt-6 font-serif text-[clamp(48px,9.5vw,136px)] font-black leading-[0.9] tracking-[-0.045em]">{project.name}</h1>
           </Reveal>
 
-          <div className="mt-8 grid gap-x-12 gap-y-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-end">
+          <div className="mt-8 grid gap-x-12 gap-y-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-start">
             <Reveal intro delay={0.2}>
               <p className="max-w-[22ch] font-serif text-[clamp(26px,3vw,40px)] font-bold leading-[1.1] tracking-[-0.02em]">{project.tagline}</p>
             </Reveal>
@@ -82,7 +82,7 @@ export default async function ProjectPage({ params }: Params) {
             <dl className="mt-14 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-6 lg:grid-cols-4">
               {project.meta.map((m) => (
                 <div key={m.label}>
-                  <dt className="font-mono text-[11px] uppercase tracking-[0.08em] text-faint">{m.label}</dt>
+                  <dt className="font-mono text-xs uppercase tracking-[0.08em] text-faint">{m.label}</dt>
                   <dd className="mt-1.5 text-[15px]">{m.value}</dd>
                 </div>
               ))}
@@ -97,7 +97,7 @@ export default async function ProjectPage({ params }: Params) {
                 <span className="size-2.5 rounded-full bg-ink/15" />
                 <span className="size-2.5 rounded-full bg-ink/15" />
                 <span className="size-2.5 rounded-full bg-ink/15" />
-                <span className="mx-auto font-mono text-[11px] text-faint">{project.cover.url}</span>
+                <span className="mx-auto truncate font-mono text-xs text-faint">{project.cover.url}</span>
               </div>
               <Image
                 src={project.cover.src}
@@ -134,6 +134,21 @@ export default async function ProjectPage({ params }: Params) {
           </dl>
         </section>
 
+        {/* The write-ups are long, so the page opens with its own contents list. */}
+        <nav aria-label="On this page" className="container-page pt-[clamp(48px,6vw,80px)]">
+          <h2 className="eyebrow text-coral-ink">On this page</h2>
+          <ol className="mt-5 grid gap-x-8 border-t border-line sm:grid-cols-2 lg:grid-cols-4">
+            {project.sections.map((s, i) => (
+              <li key={s.title} className="border-b border-line">
+                <a href={`#${sectionId(s.title)}`} className="group flex min-h-12 items-center gap-3 py-2 text-[15px] transition-colors hover:text-coral-ink">
+                  <span className="font-mono text-xs text-faint transition-colors group-hover:text-coral-ink">{String(i + 1).padStart(2, "0")}</span>
+                  {s.title}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+
         <ProjectSections sections={project.sections} />
 
         <section className="container-page pb-[clamp(72px,9vw,120px)]">
@@ -142,7 +157,7 @@ export default async function ProjectPage({ params }: Params) {
             className="group flex flex-wrap items-end justify-between gap-6 rounded-2xl border border-line bg-card p-[clamp(24px,4vw,48px)] transition-[border-color,box-shadow] duration-300 hover:border-ink/25 hover:shadow-[0_30px_70px_-40px_rgba(17,19,24,.45)]"
           >
             <span>
-              <span className="font-mono text-xs text-coral">Next project</span>
+              <span className="font-mono text-xs text-coral-ink">Next project</span>
               <span className="mt-3 block font-serif text-[clamp(36px,5.5vw,72px)] font-black leading-none tracking-[-0.04em]">{next.name}</span>
               <span className="mt-3 block max-w-[44ch] text-muted">{next.tagline}</span>
             </span>

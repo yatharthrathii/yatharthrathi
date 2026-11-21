@@ -13,7 +13,7 @@ const BOOT: Line[] = [
   { id: -1, tone: "ok", text: "api listening on :4000" },
 ];
 const TONE: Record<Tone, string> = {
-  dim: "text-white/35",
+  dim: "text-white/50",
   in: "text-white",
   step: "text-term-ink/80",
   ok: "text-mint",
@@ -98,8 +98,8 @@ export function Terminal() {
   }, []);
 
   return (
-    <div aria-hidden className="overflow-hidden rounded-xl bg-term text-left font-mono text-[11px] leading-[1.7] shadow-[0_18px_40px_-24px_rgba(14,17,23,.7)]">
-      <div className="flex items-center gap-1.5 border-b border-white/10 px-3 py-2 text-[10px] leading-none text-white/45">
+    <div aria-hidden className="overflow-hidden rounded-xl bg-term text-left font-mono text-xs leading-[1.7] shadow-[0_18px_40px_-24px_rgba(14,17,23,.7)]">
+      <div className="flex items-center gap-1.5 border-b border-white/10 px-3 py-2 text-[11px] leading-none text-white/55">
         <span className="size-2 rounded-full bg-white/15" />
         <span className="size-2 rounded-full bg-white/15" />
         <span className="size-2 rounded-full bg-white/15" />
@@ -109,7 +109,7 @@ export function Terminal() {
           listening
         </span>
       </div>
-      <div className="flex h-[152px] flex-col justify-end overflow-hidden px-3 py-2.5">
+      <div className="flex h-[164px] flex-col justify-end overflow-hidden px-3 py-2.5">
         {lines.map((l) => (
           <div key={l.id} className={`log-line truncate whitespace-pre ${TONE[l.tone]}`}>
             {l.text}

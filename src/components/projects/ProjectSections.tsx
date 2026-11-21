@@ -3,7 +3,7 @@ import type { Section, Tone } from "@/content/project-types";
 import { Reveal } from "@/components/ui/Reveal";
 
 const DOT: Record<Tone, string> = { coral: "bg-coral", ink: "bg-ink", leaf: "bg-leaf" };
-const TEXT: Record<Tone, string> = { coral: "text-coral", ink: "text-ink", leaf: "text-leaf" };
+const TEXT: Record<Tone, string> = { coral: "text-coral-ink", ink: "text-ink", leaf: "text-leaf-ink" };
 
 function Intro({ text }: { text?: string }) {
   return text ? <p className="mb-8 max-w-[64ch] text-[17px] leading-relaxed text-muted">{text}</p> : null;
@@ -29,7 +29,7 @@ function Body({ section }: { section: Section }) {
           <ul className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">
             {section.items.map((it, i) => (
               <li key={it.title} className="bg-card p-6 md:p-7">
-                <span className="font-mono text-[11px] text-coral">{String(i + 1).padStart(2, "0")}</span>
+                <span className="font-mono text-xs text-coral-ink">{String(i + 1).padStart(2, "0")}</span>
                 <h3 className="mt-3 text-lg font-medium leading-snug tracking-[-0.01em]">{it.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{it.text}</p>
               </li>
@@ -49,7 +49,7 @@ function Body({ section }: { section: Section }) {
                   <span className={`size-2.5 rounded-full ${DOT[st.tone]}`} />
                 </span>
                 <div className="rounded-xl border border-line bg-card p-5">
-                  <span className={`font-mono text-[11px] uppercase tracking-[0.08em] ${TEXT[st.tone]}`}>{st.label}</span>
+                  <span className={`font-mono text-xs uppercase tracking-[0.08em] ${TEXT[st.tone]}`}>{st.label}</span>
                   <h3 className="mt-1.5 text-[17px] font-medium tracking-[-0.01em]">{st.title}</h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-muted">{st.text}</p>
                 </div>
@@ -109,18 +109,18 @@ function Body({ section }: { section: Section }) {
         <>
           <Intro text={section.intro} />
           <div className="overflow-hidden rounded-2xl bg-term p-5 font-mono text-[13px] text-white md:p-8">
-            <div className="mb-5 flex items-center justify-between text-[11px] text-white/50">
+            <div className="mb-5 flex items-center justify-between text-xs text-white/55">
               <span>Today</span>
               <span className="rounded-full bg-[#FFB86B]/15 px-2.5 py-1 text-[#FFB86B]">{section.late}</span>
             </div>
             <ul className="grid gap-2">
               {section.rows.map((r) => (
                 <li key={r.task} className="grid grid-cols-[1fr_auto_auto] items-center gap-4 rounded-lg border border-white/10 bg-white/[.04] px-4 py-3">
-                  <span className="truncate">
+                  <span className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1.5">
                     {r.task}
-                    {r.tag && <span className="ml-2 rounded border border-white/20 px-1.5 py-0.5 text-[10px] text-white/55">{r.tag}</span>}
+                    {r.tag && <span className="whitespace-nowrap rounded border border-white/20 px-1.5 py-0.5 text-[11px] text-white/60">{r.tag}</span>}
                   </span>
-                  <s className={`text-white/35 ${r.planned === r.actual ? "invisible" : ""}`}>{r.planned}</s>
+                  <s className={`text-white/50 ${r.planned === r.actual ? "invisible" : ""}`}>{r.planned}</s>
                   <b className={`font-medium ${r.planned === r.actual ? "text-white/80" : "text-[#FFB86B]"}`}>{r.actual}</b>
                 </li>
               ))}
@@ -139,7 +139,7 @@ function Body({ section }: { section: Section }) {
               <dd>
                 <ul className="flex flex-wrap gap-1.5">
                   {g.items.map((it) => (
-                    <li key={it} className="chip bg-card text-[12px] text-ink">
+                    <li key={it} className="chip bg-card text-ink">
                       {it}
                     </li>
                   ))}
@@ -166,13 +166,21 @@ function Body({ section }: { section: Section }) {
   }
 }
 
+/** The anchor for a section, shared with the contents list at the top of the page. */
+export function sectionId(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 export function ProjectSections({ sections }: { sections: Section[] }) {
   return (
     <div className="container-page">
       {sections.map((section, i) => (
-        <section key={section.title} className="grid gap-x-12 gap-y-8 border-t border-line py-[clamp(56px,7vw,96px)] lg:grid-cols-[240px_minmax(0,1fr)]">
+        <section key={section.title} id={sectionId(section.title)} className="grid gap-x-12 gap-y-8 border-t border-line py-[clamp(56px,7vw,96px)] lg:grid-cols-[240px_minmax(0,1fr)]">
           <Reveal className="self-start lg:sticky lg:top-24">
-            <span className="font-mono text-xs text-coral">{String(i + 1).padStart(2, "0")}</span>
+            <span className="font-mono text-xs text-coral-ink">{String(i + 1).padStart(2, "0")}</span>
             <h2 className="mt-3 font-serif text-[clamp(28px,2.8vw,36px)] font-black leading-[1.05] tracking-[-0.03em]">{section.title}</h2>
           </Reveal>
           <Reveal>

@@ -161,7 +161,15 @@ export function ParticlePortrait({ src, alt }: Props) {
       const R = 44;
       let mx = -1e4, my = -1e4, touched = false, lastMove = performance.now();
       let ghost: { start: number } | null = null;
+      // The demo cursor shows itself a few times and then leaves the portrait alone.
+      let demos = 0;
       const waves: { x: number; y: number; t: number }[] = [];
+      // Nothing moves fast unless someone is interacting, so until woken the loop draws every other frame,
+      // and on touch devices only every sixth while the scan line is not passing.
+      let awakeUntil = 0;
+      const wake = (ms: number) => {
+        awakeUntil = Math.max(awakeUntil, performance.now() + ms);
+      };
 
       stage!.addEventListener("pointermove", (e) => {
         const r = cv!.getBoundingClientRect();
@@ -170,6 +178,7 @@ export function ParticlePortrait({ src, alt }: Props) {
         touched = true;
         lastMove = performance.now();
         ghost = null;
+        wake(1500);
         if (finePointer) inspect(e.clientX - r.left, e.clientY - r.top);
       }, { signal: events.signal });
       stage!.addEventListener("pointerleave", () => { mx = my = -1e4; tip!.style.opacity = "0"; }, { signal: events.signal });
@@ -178,6 +187,7 @@ export function ParticlePortrait({ src, alt }: Props) {
         const r = cv!.getBoundingClientRect();
         const cx = (e.clientX - r.left) / k, cy = (e.clientY - r.top) / k;
         waves.push({ x: cx, y: cy, t: 0 });
+        wake(3000);
         for (let i = 0; i < n; i++) {
           const dx = x[i]! - cx, dy = y[i]! - cy, d = Math.hypot(dx, dy) || 1;
           const f = Math.max(0, 1 - d / 260) * 26 + Math.random() * 3;
@@ -196,6 +206,7 @@ export function ParticlePortrait({ src, alt }: Props) {
           { duration: 800, easing: "ease-out" },
         );
         if (reduce) return;
+        wake(3000);
         const REACH = 64, cyMid = H * 0.46;
         for (let i = 0; i < n; i++) {
           const off = (MID - hx[i]!) * dir;
@@ -244,15 +255,23 @@ export function ParticlePortrait({ src, alt }: Props) {
       introEnd += 0.6;
 
       const t0 = performance.now();
-      let lastT = t0, frame = 0, scanY = -1;
+      let lastT = t0, frame = 0, scanY = -1, beat = 0;
+      wake((introEnd + 1.5) * 1000);
 
       function tick(now: number) {
         raf = requestAnimationFrame(tick);
         if (!visible) return;
+        const calm = now > awakeUntil;
+        const pace = !calm ? 1 : finePointer || scanY >= 0 ? 2 : 6;
+        if (++beat % pace) return;
         const t = (now - t0) / 1000;
         frame++;
 
-        if (!reduce && !ghost && now - lastMove > (touched ? 7000 : 3000) && t > 2.6) ghost = { start: now };
+        if (!reduce && !ghost && demos < 3 && now - lastMove > (touched ? 7000 : 3000) && t > 2.6) {
+          ghost = { start: now };
+          demos++;
+          wake(2600);
+        }
         let gx = -1e4, gy = -1e4;
         if (ghost) {
           const u = (now - ghost.start) / 2200;
@@ -261,7 +280,7 @@ export function ParticlePortrait({ src, alt }: Props) {
         const cx = mx > -1e3 ? mx : gx, cy = mx > -1e3 ? my : gy;
 
         if (!reduce && t > 3 && Math.floor(t / 4.5) !== Math.floor((t - (now - lastT) / 1000) / 4.5)) scanY = H * 0.06;
-        if (scanY >= 0 && (scanY += 4.2) > H * 0.9) scanY = -1;
+        if (scanY >= 0 && (scanY += 4.2 * Math.min(pace, 2)) > H * 0.9) scanY = -1;
         lastT = now;
 
         if (!reduce) {
@@ -282,13 +301,13 @@ export function ParticlePortrait({ src, alt }: Props) {
             x[i]! += vx[i]!;
             y[i]! += vy[i]!;
             if (kk[i]! < 0.075) kk[i]! += 0.0005;
-            if (hot[i]! > 0) hot[i]! -= 0.03;
-            if (scanY >= 0 && x[i]! > MID && Math.abs(y[i]! - scanY) < 5) {
+            if (hot[i]! > 0) hot[i]! -= 0.03 * pace;
+            if (scanY >= 0 && x[i]! > MID && Math.abs(y[i]! - scanY) < STEP) {
               hot[i] = 0.9;
               g[i] = Math.floor(Math.random() * RAMP.length);
             } else if (hot[i]! <= 0 && g[i] !== g0[i] && Math.random() < 0.05) g[i] = g0[i]!;
           }
-          if (frame % 6 === 0) {
+          if (frame % (6 / pace) === 0) {
             for (let m = 0; m < 26; m++) {
               const q = Math.floor(Math.random() * n);
               if (x[q]! > MID && hot[q]! <= 0) g[q] = Math.max(0, Math.min(RAMP.length - 1, g0[q]! + (Math.random() < 0.5 ? -1 : 1)));
@@ -400,10 +419,10 @@ export function ParticlePortrait({ src, alt }: Props) {
         <span aria-hidden className="absolute bottom-0 right-0 top-[8%] w-1/2 rounded-tr-[90%_35%] bg-term" />
         <canvas ref={canvasRef} role="img" aria-label={alt} className="absolute inset-0 block size-full [--glyph-font:var(--font-jetbrains)]" />
       </div>
-      <span className="absolute right-[calc(50%+10px)] top-[3%] whitespace-nowrap rounded-md bg-white opacity-0 transition-opacity duration-500 group-data-ready:opacity-100 px-2 py-1.5 font-mono text-[10.5px] font-medium leading-none text-coral shadow-[0_8px_20px_-12px_rgba(0,0,0,.3)]">
+      <span className="absolute right-[calc(50%+10px)] top-[3%] whitespace-nowrap rounded-md bg-white opacity-0 transition-opacity duration-500 group-data-ready:opacity-100 px-2 py-1.5 font-mono text-[11px] font-medium leading-none text-coral-ink shadow-[0_8px_20px_-12px_rgba(0,0,0,.3)]">
         components · <span ref={leftCount} className="inline-block min-w-[3.4ch] text-right tabular-nums">0</span>
       </span>
-      <span className="absolute left-[calc(50%+10px)] top-[3%] whitespace-nowrap rounded-md bg-term-2 opacity-0 transition-opacity duration-500 group-data-ready:opacity-100 px-2 py-1.5 font-mono text-[10.5px] font-medium leading-none text-[#8C97A8]">
+      <span className="absolute left-[calc(50%+10px)] top-[3%] whitespace-nowrap rounded-md bg-term-2 opacity-0 transition-opacity duration-500 group-data-ready:opacity-100 px-2 py-1.5 font-mono text-[11px] font-medium leading-none text-[#8C97A8]">
         glyphs · <span ref={rightCount} className="inline-block min-w-[3.4ch] text-right tabular-nums">0</span> <b className="font-normal text-mint">$</b>
       </span>
       <span aria-hidden className="pointer-events-none absolute bottom-[8%] left-1/2 top-0 w-[1.5px] -translate-x-1/2 bg-ink">
@@ -414,7 +433,7 @@ export function ParticlePortrait({ src, alt }: Props) {
       <span
         ref={tipRef}
         aria-hidden
-        className="pointer-events-none absolute left-0 top-0 z-10 hidden whitespace-nowrap rounded-md px-2 py-1.5 font-mono text-[10.5px] font-medium leading-none opacity-0 transition-opacity duration-150 before:mr-1.5 before:inline-block before:size-2.5 before:rounded-sm before:bg-[var(--swatch)] before:align-[-1px] data-[side=l]:bg-white data-[side=l]:text-ink data-[side=l]:shadow-[0_8px_20px_-10px_rgba(0,0,0,.35)] data-[side=r]:bg-term-2 data-[side=r]:text-mint data-[side=r]:before:hidden lg:block"
+        className="pointer-events-none absolute left-0 top-0 z-10 hidden whitespace-nowrap rounded-md px-2 py-1.5 font-mono text-[11px] font-medium leading-none opacity-0 transition-opacity duration-150 before:mr-1.5 before:inline-block before:size-2.5 before:rounded-sm before:bg-[var(--swatch)] before:align-[-1px] data-[side=l]:bg-white data-[side=l]:text-ink data-[side=l]:shadow-[0_8px_20px_-10px_rgba(0,0,0,.35)] data-[side=r]:bg-term-2 data-[side=r]:text-mint data-[side=r]:before:hidden lg:block"
       />
       <noscript>
         {/* eslint-disable-next-line @next/next/no-img-element */}

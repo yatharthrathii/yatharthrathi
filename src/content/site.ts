@@ -1,4 +1,4 @@
-// The copy for the home page lives here. Client names are deliberately never used.
+// The copy for the home page lives here; projects are in ./projects.ts. Client names are deliberately never used.
 
 export const site = {
   name: "Yatharth Rathi",
@@ -9,7 +9,7 @@ export const site = {
     "Yatharth Rathi is a full-stack engineer who builds product interfaces and the systems behind them: booking funnels, supplier integrations and background jobs. TypeScript, NestJS, Next.js, PostgreSQL, React Native.",
   email: "yatharthmaheshwari01@gmail.com",
   resume: "/Yatharth-Rathi-Resume.pdf",
-  currently: "Software Engineer at Codevibe Technology",
+  currently: "Associate Software Engineer at Codevibe Technology",
   links: {
     github: "https://github.com/yatharthrathii",
     linkedin: "https://www.linkedin.com/in/yatharthrathii",
@@ -32,13 +32,15 @@ export const hero = {
   },
   facts: [
     "Open to full-stack & backend roles",
-    "Software Engineer at Codevibe Technology",
+    "Associate Software Engineer at Codevibe Technology",
     "~1 year in production · ex-Team Lead",
   ],
 } as const;
 
 export type Role = {
   title: string;
+  /** Set on the role when one employer covers more than one kind of employment. */
+  kind?: string;
   /** Year-month, e.g. "2026-04". No end means the role is current. */
   start: string;
   end?: string;
@@ -50,6 +52,7 @@ export type Role = {
 export type Employer = {
   org: string;
   location: string;
+  /** Employment type, when every role here shares it. */
   kind?: string;
   /** Newest role first, like LinkedIn. */
   roles: Role[];
@@ -59,11 +62,23 @@ export const employers: Employer[] = [
   {
     org: "Codevibe Technology",
     location: "Gurugram",
-    kind: "Full-time",
     roles: [
       {
-        title: "Software Engineer",
+        title: "Associate Software Engineer",
+        kind: "Full-time",
+        start: "2026-11",
+        badge: "Intern to full-time",
+        groups: [
+          {
+            points: ["Joined full-time after a seven-month internship, continuing on the same booking platforms."],
+          },
+        ],
+      },
+      {
+        title: "Full Stack Developer Intern",
+        kind: "Internship",
         start: "2026-04",
+        end: "2026-10",
         groups: [
           {
             heading: "Consumer flight & hotel booking platform",
@@ -122,52 +137,19 @@ export const employers: Employer[] = [
 
 export const education = [
   {
+    when: "2024 – 2025",
+    degree: "Frontend development course",
+    school: "Sharpener",
+  },
+  {
     when: "2020 – 2024",
     degree: "B.Tech, Computer Science",
     school: "Shri Ram Institute of Technology",
   },
 ] as const;
 
-// The project cards on the home page. The long-form write-ups live in ./projects.ts.
-export type Project = {
-  slug: string;
-  name: string;
-  kind: string;
-  why: string;
-  what: string;
-  tags: string[];
-  live?: string;
-  code?: string;
-  image: string;
-  /** How the card frames the image: a browser window or a phone. */
-  frame: "browser" | "phone";
-};
-
-export const featuredProjects: Project[] = [
-  {
-    slug: "recallify",
-    name: "Recallify",
-    kind: "Web · Full-stack",
-    why: "I kept forgetting what I studied a week later.",
-    what: "A flashcard app that schedules every card with FSRS and shows its reasoning: each card's forgetting curve, why it is due today, and a model fitted to your own reviews.",
-    tags: ["Next.js", "NestJS", "PostgreSQL"],
-    live: "https://recallify-five.vercel.app",
-    code: "https://github.com/yatharthrathii/Recallify",
-    image: "/images/projects/recallify-cover.webp",
-    frame: "browser",
-  },
-  {
-    slug: "build-or-break",
-    name: "build-or-break",
-    kind: "Android · Kotlin",
-    why: "One late start used to throw off my whole day.",
-    what: "A routine app that recomputes the rest of your day when you run late, and measures whether its alarms actually rang. No account, no server, no internet permission.",
-    tags: ["Kotlin", "Jetpack Compose", "Room"],
-    code: "https://github.com/yatharthrathii/build-or-break",
-    image: "/images/projects/build-or-break-today.webp",
-    frame: "phone",
-  },
-];
+/** The degree, for structured data. */
+export const degree = education[1];
 
 // Ordered the way a request travels: from the screen, through the API, down to the data.
 export const stack = [

@@ -1,6 +1,6 @@
 import type { ProjectDetail } from "./project-types";
 
-// Long-form write-ups, one per project page. Every figure here comes from the project's own
+// Everything about a project lives here: its card on the home page and its long-form write-up. Every figure here comes from the project's own
 // repository (code, tests, README), so update it there first and here second.
 
 const recallify: ProjectDetail = {
@@ -10,6 +10,16 @@ const recallify: ProjectDetail = {
   tagline: "A flashcard scheduler that shows its work.",
   intro:
     "I kept forgetting what I studied a week later. Spaced repetition fixes that, but every app I tried hid the model: a card appears and you are never told why. Recallify schedules each card with FSRS and puts the reasoning on the screen.",
+  card: {
+    why: "I kept forgetting what I studied a week later.",
+    what: "A flashcard app that schedules every card with FSRS and shows its reasoning: each card's forgetting curve, why it is due today, and a model fitted to your own reviews.",
+    tags: ["Next.js", "NestJS", "PostgreSQL"],
+    image: "/images/projects/recallify-cover.webp",
+    alt: "The Recallify home page",
+    frame: "browser",
+    live: "https://recallify-five.vercel.app",
+    code: "https://github.com/yatharthrathii/Recallify",
+  },
   meta: [
     { label: "Role", value: "Solo. Design, frontend, backend and deployment" },
     { label: "Timeline", value: "Version 2 built Aug to Sep 2026" },
@@ -222,6 +232,15 @@ const buildOrBreak: ProjectDetail = {
   tagline: "A routine app that moves with you when the day goes wrong.",
   intro:
     "One late start used to throw off my whole day. Every routine app I tried assumed the plan would hold. build-or-break recomputes the rest of the day when you run late, and treats an alarm that does not ring as a bug to be measured.",
+  card: {
+    why: "One late start used to throw off my whole day.",
+    what: "A routine app that recomputes the rest of your day when you run late, and measures whether its alarms actually rang. No account, no server, no internet permission.",
+    tags: ["Kotlin", "Jetpack Compose", "Room"],
+    image: "/images/projects/build-or-break-today.webp",
+    alt: "The build-or-break Today screen",
+    frame: "phone",
+    code: "https://github.com/yatharthrathii/build-or-break",
+  },
   meta: [
     { label: "Role", value: "Solo. Design, engineering and testing" },
     { label: "Timeline", value: "Built in Sep 2026" },

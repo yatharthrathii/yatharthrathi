@@ -6,7 +6,7 @@ export function SectionHead({ index, label, title, intro, dark }: Props) {
   return (
     <Reveal className="mb-14 grid gap-5 md:grid-cols-12 md:items-end">
       <div className="md:col-span-7">
-        <span className={`eyebrow mb-5 ${dark ? "text-mint" : "text-coral"}`}>
+        <span className={`eyebrow mb-5 ${dark ? "text-mint" : "text-coral-ink"}`}>
           {index} · {label}
         </span>
         <h2 className="font-serif text-[clamp(36px,4.6vw,64px)] font-black leading-[1] tracking-[-0.035em]">{title}</h2>
