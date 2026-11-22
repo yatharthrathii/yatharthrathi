@@ -75,7 +75,7 @@ export const employers: Employer[] = [
         ],
       },
       {
-        title: "Full Stack Developer Intern",
+        title: "Software Engineer Intern",
         kind: "Internship",
         start: "2026-04",
         end: "2026-10",

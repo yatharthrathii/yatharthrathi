@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { emit, subscribe, type Method } from "./bus";
+import { site } from "@/content/site";
+import { emit, ENDPOINT, subscribe, type Method } from "./bus";
 
 type Tone = "dim" | "in" | "step" | "ok";
 type Line = { id: number; tone: Tone; text: string };
@@ -23,24 +24,36 @@ const STEP_MS = 170;
 
 const rand = (a: number, b: number) => Math.round(a + Math.random() * (b - a));
 
+const FIRST_NAME = site.name.split(" ")[0]!;
+const KEY = `hello:${FIRST_NAME.toLowerCase()}`;
+
+// The reply is a hello from me, timed to the visitor's own clock. Kept short enough to fit a phone-width terminal.
+function greeting() {
+  const h = new Date().getHours();
+  const hello = h >= 5 && h < 12 ? "Good morning" : h >= 12 && h < 17 ? "Good afternoon" : h >= 17 && h < 22 ? "Good evening" : "Hey";
+  return `"${hello}, ${FIRST_NAME} here."`;
+}
+
 // What the "server" does with a request. The first GET misses the cache, later ones hit it.
 function plan(method: Method, cached: boolean) {
   if (method === "POST") {
     const q = rand(7, 14);
     return {
-      steps: ["→ POST /api/messages", "  zod    body valid", `  pg     insert messages · ${q} ms`, `  queue  email.notify #${rand(4100, 4999)}`],
+      steps: [`→ POST ${ENDPOINT}`, "  zod    body valid", `  pg     insert hello · ${q} ms`, `  queue  notify.${FIRST_NAME.toLowerCase()} #${rand(4100, 4999)}`],
       label: "201 Created",
       ms: q + rand(24, 40),
+      body: '"Hi back. Thanks for visiting."',
     };
   }
   if (cached) {
-    return { steps: ["→ GET /api/projects", "  redis  hit projects:list"], label: "200 OK", ms: rand(6, 12) };
+    return { steps: [`→ GET ${ENDPOINT}`, `  redis  hit ${KEY}`], label: "200 OK", ms: rand(6, 12), body: greeting() };
   }
   const q = rand(9, 16);
   return {
-    steps: ["→ GET /api/projects", "  redis  miss projects:list", `  pg     select projects · ${q} ms`, "  redis  set projects:list ttl 60s"],
+    steps: [`→ GET ${ENDPOINT}`, `  redis  miss ${KEY}`, `  pg     select hello · ${q} ms`, `  redis  set ${KEY} ttl 60s`],
     label: "200 OK",
     ms: q + rand(12, 20),
+    body: greeting(),
   };
 }
 
@@ -79,8 +92,9 @@ export function Terminal() {
       p.steps.forEach((text, i) => later(() => push(i === 0 ? "in" : "step", text), i * STEP_MS));
       later(() => {
         push("ok", `← ${p.label} · ${p.ms} ms`);
+        push("in", `  ${p.body}`);
         busy = false;
-        emit({ type: "response", method: e.method, label: p.label, ms: p.ms });
+        emit({ type: "response", method: e.method, label: p.label, ms: p.ms, body: p.body });
       }, p.steps.length * STEP_MS + 140);
     });
 

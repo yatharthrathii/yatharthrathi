@@ -56,10 +56,6 @@ export function Hero() {
             src="/images/yatharth.webp"
             alt="Portrait of Yatharth Rathi, made of colour tiles on the left and code characters on the right. Push the tiles across the middle line and they turn into code."
           />
-          <p className="mt-3 text-center font-mono text-xs text-muted">
-            push pixels across the line · they turn into code ·{" "}
-            <kbd className="rounded border border-b-2 border-line px-1.5 font-mono">click</kbd> to rebuild
-          </p>
           <Reveal intro delay={0.3} className="mt-4 grid gap-1 text-center">
             <h1 className="font-serif text-[clamp(30px,2.6vw,40px)] font-black leading-none tracking-[-0.03em]">{site.name}</h1>
             <p className="text-sm text-muted">

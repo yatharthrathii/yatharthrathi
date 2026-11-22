@@ -1,12 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { emit, subscribe, type Method } from "./bus";
+import { emit, ENDPOINT, subscribe, type Method } from "./bus";
 
-type State = { kind: "idle" } | { kind: "pending" } | { kind: "done"; label: string; ms: number };
+type State = { kind: "idle" } | { kind: "pending" } | { kind: "done"; label: string; ms: number; body: string };
 
 const METHODS: Method[] = ["GET", "POST"];
-const ENDPOINT: Record<Method, string> = { GET: "/api/projects", POST: "/api/messages" };
 
 // The frontend half of the demo: a real component. Sending a request pushes pixels
 // across the portrait's API line, and the terminal on the other side handles it.
@@ -38,7 +37,7 @@ export function RequestCard() {
       }
       clearTimeout(guard);
       pending.current = false;
-      setState({ kind: "done", label: e.label, ms: e.ms });
+      setState({ kind: "done", label: e.label, ms: e.ms, body: e.body });
       reset = window.setTimeout(() => setState({ kind: "idle" }), 2800);
     });
 
@@ -83,7 +82,7 @@ export function RequestCard() {
             </button>
           ))}
         </div>
-        <code className="truncate font-mono text-xs text-muted">{ENDPOINT[method]}</code>
+        <code className="truncate font-mono text-xs text-muted">{ENDPOINT}</code>
       </div>
 
       <button
@@ -117,7 +116,10 @@ export function RequestCard() {
         </span>
       </button>
 
-      <p className="mt-2.5 font-mono text-[11px] leading-tight text-faint">crosses the api line · lands in terminal</p>
+      {/* The reply shows here too, because on a phone the terminal is further down the page. */}
+      <p className={`mt-2.5 truncate font-mono text-[11px] leading-tight ${state.kind === "done" ? "text-ink" : "text-faint"}`}>
+        {state.kind === "done" ? `← ${state.body}` : "crosses the api line · lands in terminal"}
+      </p>
     </div>
   );
 }
