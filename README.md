@@ -37,13 +37,25 @@ There is no backend and no environment file. GitHub Actions runs lint, typecheck
 
 ## Editing content
 
+Notes for me on where each part of the site lives. Nothing here needs to be uploaded; it only says which file to change.
+
 - Home page copy (hero, jobs, education, skills) lives in `src/content/site.ts`.
 - Everything about a project, its home page card and its case study, lives in `src/content/projects.ts`. Every figure there comes from the project's own repository, so change it there first.
 - Project screenshots are in `public/images/projects/`.
 - The portrait is `public/images/yatharth.webp`: a cut-out with a transparent background, 4:5. Replace it and the particles are regenerated in the browser from the new photo.
-- The resume is written in `resume/resume.html`. `npm run resume` prints it to `public/Yatharth-Rathi-Resume.pdf` with an installed Chrome or Edge, so edit the HTML and rebuild rather than editing the PDF. `npm run resume -- "+91 ..."` also writes a copy with a phone number to `resume/private/`, which git ignores.
-- The resume button appears on the live site once that PDF exists. In `npm run dev` it always shows, so the layout can be checked before the PDF is there.
+- The resume button appears on the live site once the resume PDF exists. In `npm run dev` it always shows, so the layout can be checked before the PDF is there.
 - Page views are counted with Vercel Web Analytics (cookieless). It only loads on Vercel, and needs Web Analytics switched on in the project there.
+
+### Updating the resume
+
+The resume is written in `resume/resume.html`. Edit that file, never the PDF, then print it again with an installed Chrome or Edge:
+
+```bash
+npm run resume                      # public/Yatharth-Rathi-Resume.pdf, the one the site links to
+npm run resume -- "+91 XXXXX XXXXX" # also resume/private/Yatharth-Rathi-Resume.pdf, with a phone number
+```
+
+The copy with the phone number is for job applications. `resume/private/` is ignored by git, so the number never reaches GitHub.
 
 ## Contact
 
