@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yatharth Rathi - Resume</title>
+    <meta name="author" content="Yatharth Rathi" />
+    <!--
+      The source of public/Yatharth-Rathi-Resume.pdf. Edit this file, then run `npm run resume`.
+      One column and real text on purpose: applicant tracking systems read it top to bottom.
+      Client names are never used here, same as on the site.
+    -->
+    <style>
+      @font-face {
+        font-family: "Playfair";
+        src: url("../src/app/fonts/playfair-800.ttf") format("truetype");
+        font-weight: 800;
+      }
+      /* Inter is bundled (SIL OFL, see fonts/Inter-OFL.txt) because a system font like Segoe UI renders thin and broken-up in PDF viewers. */
+      @font-face {
+        font-family: "Inter";
+        src: url("fonts/inter-400.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("fonts/inter-500.woff2") format("woff2");
+        font-weight: 500;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("fonts/inter-600.woff2") format("woff2");
+        font-weight: 600;
+      }
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --ink: #111318;
+        --muted: #3b4049;
+        --line: #c9ccd2;
+        --accent: #c8361b;
+      }
+      html {
+        background: #e9eaed;
+      }
+      body {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 24px auto;
+        padding: 9.5mm 12.5mm 6.5mm;
+        background: #fff;
+        color: var(--ink);
+        font: 9pt/1.4 "Inter", "Segoe UI", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        font-variant-ligatures: none;
+        box-shadow: 0 10px 40px -20px rgba(17, 19, 24, 0.5);
+      }
+      @media print {
+        html {
+          background: none;
+        }
+        body {
+          margin: 0;
+          box-shadow: none;
+        }
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      header {
+        text-align: center;
+      }
+      header h1 {
+        font: 800 25pt/1 "Playfair", Georgia, serif;
+        letter-spacing: -0.02em;
+      }
+      header .role {
+        margin-top: 2mm;
+        font-size: 10.5pt;
+        font-weight: 600;
+        color: var(--muted);
+      }
+      header .contact {
+        margin-top: 1.3mm;
+        font-size: 9pt;
+        white-space: nowrap;
+        color: var(--muted);
+      }
+      header .contact span + span::before {
+        content: "  |  ";
+        white-space: pre;
+        color: var(--line);
+      }
+      /* Links read as names here, so an underline marks them as clickable. */
+      header .contact a {
+        color: var(--ink);
+        text-decoration: underline;
+        text-decoration-color: var(--line);
+        text-decoration-thickness: 0.6pt;
+        text-underline-offset: 1.5pt;
+      }
+
+      section {
+        margin-top: 3.2mm;
+      }
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 3mm;
+        margin-bottom: 1.4mm;
+        font-size: 8pt;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      h2::after {
+        content: "";
+        flex: 1;
+        height: 0.5pt;
+        background: var(--line);
+      }
+
+      .job + .job,
+      .project + .project {
+        margin-top: 2.3mm;
+      }
+      .org {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 4mm;
+      }
+      h3 {
+        font-size: 10.2pt;
+        font-weight: 600;
+      }
+      .place,
+      .when,
+      .links {
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .role-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 4mm;
+      }
+      .role-line strong {
+        font-weight: 600;
+      }
+      .role-line em {
+        font-style: normal;
+        color: var(--muted);
+      }
+      ul {
+        margin-top: 1mm;
+        padding-left: 4.2mm;
+      }
+      li {
+        padding-left: 0.6mm;
+      }
+      li::marker {
+        color: var(--muted);
+      }
+      li + li {
+        margin-top: 0.3mm;
+      }
+      .tech {
+        margin-top: 1mm;
+        color: var(--muted);
+      }
+      .tech b,
+      .skills b {
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .what {
+        font-size: 9.1pt;
+        font-weight: 400;
+        color: var(--muted);
+      }
+      .edu strong {
+        font-weight: 600;
+      }
+      .skills p + p {
+        margin-top: 0.5mm;
+      }
+      .edu {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 4mm;
+      }
+      .edu + .edu {
+        margin-top: 0.6mm;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Yatharth Rathi</h1>
+      <p class="role">Full Stack Developer | Backend Developer</p>
+      <p class="contact">
+        <span>Gurugram, India</span>
+        <span id="phone" hidden></span>
+        <span><a href="mailto:yatharthmaheshwari01@gmail.com">yatharthmaheshwari01@gmail.com</a></span>
+        <span><a href="https://yatharthrathi.vercel.app">Portfolio</a></span>
+        <span><a href="https://www.linkedin.com/in/yatharthrathii">LinkedIn</a></span>
+        <span><a href="https://github.com/yatharthrathii">GitHub</a></span>
+      </p>
+    </header>
+
+    <section>
+      <h2>Summary</h2>
+      <p>
+        Full Stack Developer with 1+ years of experience in TypeScript, Node.js (NestJS), React and Next.js with PostgreSQL. Built flight and hotel
+        booking platforms and a multi-tenant HR and payroll SaaS end to end, from the UI to REST and tRPC APIs, supplier integrations and
+        background jobs. Earlier led a four-person React Native team.
+      </p>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+
+      <div class="job">
+        <div class="org">
+          <h3>Codevibe Technology</h3>
+          <span class="place">Gurugram, India · Hybrid</span>
+        </div>
+        <div class="role-line">
+          <span><strong>Associate Software Engineer</strong> <em>· Full-time, converted from internship</em></span>
+          <span class="when">Nov 2026 – Present</span>
+        </div>
+        <div class="role-line">
+          <span><strong>Software Engineer Intern</strong></span>
+          <span class="when">Apr 2026 – Oct 2026</span>
+        </div>
+        <ul>
+          <li>Built the first online booking channel for a travel company that had sold only offline: flight and hotel search, seat and meal selection, traveller details, payment and confirmation, in Next.js and NestJS.</li>
+          <li>Integrated 10+ GDS supplier operations (search, fare rules, booking, ticketing, cancellation), and wrote the largest share of the flight booking service: payment, airline booking and automatic refund on failure.</li>
+          <li>Designed booking holds, full and partial cancellation, and abandoned-booking recovery via WhatsApp and email, so unfinished bookings are followed up instead of lost.</li>
+          <li>Created 7 backend modules, including the admin bookings console (15 endpoints) and push alerts for the staff PWA; also built a CMS with branding and access control for a B2B group-travel platform.</li>
+          <li>For a multi-tenant HR and payroll SaaS, built the performance-review module, the platform admin console and subscription billing with GST invoices, using Next.js, tRPC and PostgreSQL Row-Level Security.</li>
+          <li>Tested that product end to end and fixed what it found, including salary proration for mid-month joiners, a cross-tenant admin takeover and a role escalation.</li>
+          <li>Wrote 150+ Jest and Vitest test files and 28 database migrations across the three products.</li>
+        </ul>
+        <p class="tech"><b>Tech:</b> TypeScript, Node.js, NestJS, Next.js, React, tRPC, PostgreSQL, Prisma, Drizzle ORM, Redis, Zod, Docker</p>
+      </div>
+
+      <div class="job">
+        <div class="org">
+          <h3>Medzzapp by NirveonX</h3>
+          <span class="place">Hyderabad, India · Remote</span>
+        </div>
+        <div class="role-line">
+          <span><strong>Team Lead, Mobile</strong> <em>· Internship, promoted after three months</em></span>
+          <span class="when">Dec 2025 – Feb 2026</span>
+        </div>
+        <div class="role-line">
+          <span><strong>Mobile Developer Intern</strong></span>
+          <span class="when">Sep 2025 – Nov 2025</span>
+        </div>
+        <ul>
+          <li>Built a React Native app for patients, delivery partners and medical stores: prescription upload, ordering and JWT auth.</li>
+          <li>Interviewed and hired four developers for the mobile team, then led them day to day.</li>
+          <li>Set the technical direction of the app: component structure, state management patterns and API conventions.</li>
+          <li>Shipped an LLM-powered chatbot for health queries and live map-based delivery tracking.</li>
+        </ul>
+        <p class="tech"><b>Tech:</b> React Native, Expo, TypeScript, Redux Toolkit</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Projects</h2>
+
+      <div class="project">
+        <div class="org">
+          <h3>Recallify <span class="what">· Next.js, NestJS, PostgreSQL, Prisma</span></h3>
+          <span class="links">
+            <a href="https://recallify-five.vercel.app">recallify-five.vercel.app</a> ·
+            <a href="https://github.com/yatharthrathii/Recallify">github.com/yatharthrathii/Recallify</a>
+          </span>
+        </div>
+        <ul>
+          <li>Built a spaced-repetition flashcard app: wrote the FSRS-6 scheduling algorithm by hand, with no runtime dependencies, and verified it against the reference library on 19,000 generated cases.</li>
+          <li>Added AI card drafting through an LLM API (Groq), offline review sync that cannot apply an answer twice, rotating refresh tokens with Argon2id, and 300+ tests (Vitest, Playwright) in GitHub Actions.</li>
+        </ul>
+      </div>
+
+      <div class="project">
+        <div class="org">
+          <h3>build-or-break <span class="what">· Kotlin, Jetpack Compose, Room · in development</span></h3>
+          <span class="links"><a href="https://github.com/yatharthrathii/build-or-break">github.com/yatharthrathii/build-or-break</a></span>
+        </div>
+        <ul>
+          <li>Built an Android routine app on a pure-Kotlin scheduling engine that recomputes the day when a step runs late.</li>
+          <li>Made alarms survive reboots, updates and clock changes with a four-tier fallback; 650+ tests across 11 Gradle modules.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <div class="skills">
+        <p><b>Languages:</b> TypeScript, JavaScript (ES6+), SQL, Kotlin, HTML5, CSS3</p>
+        <p><b>Frontend:</b> React.js, Next.js (App Router), Redux Toolkit, TanStack Query, Tailwind CSS, shadcn/ui</p>
+        <p><b>Backend:</b> Node.js, NestJS, Express.js, REST APIs, tRPC, JWT, OAuth, Zod, background jobs, LLM API integration</p>
+        <p><b>Databases:</b> PostgreSQL, Prisma, Drizzle ORM, Redis, Firebase</p>
+        <p><b>Mobile:</b> React Native, Expo, Jetpack Compose</p>
+        <p><b>Testing and DevOps:</b> Jest, Vitest, Playwright, Docker, GitHub Actions (CI/CD), Git</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <div class="edu">
+        <span><strong>B.Tech, Computer Science</strong> · Shri Ram Institute of Science and Technology (SRIST), Jabalpur · CGPA 7.67/10</span>
+        <span class="when">2020 – 2024</span>
+      </div>
+      <div class="edu">
+        <span><strong>Frontend development course</strong> · Sharpener</span>
+        <span class="when">2024 – 2025</span>
+      </div>
+    </section>
+
+    <script>
+      // The public PDF carries no phone number. `npm run resume -- "+91 ..."` also prints a private copy that does.
+      const phone = new URLSearchParams(location.search).get("phone");
+      if (phone) {
+        const slot = document.getElementById("phone");
+        slot.textContent = phone;
+        slot.hidden = false;
+      }
+    </script>
+  </body>
+</html>
