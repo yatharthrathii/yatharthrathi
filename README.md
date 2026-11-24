@@ -39,7 +39,8 @@ There is no backend and no environment file. GitHub Actions runs lint, typecheck
 - Everything about a project, its home page card and its case study, lives in `src/content/projects.ts`. Every figure there comes from the project's own repository, so change it there first.
 - Project screenshots are in `public/images/projects/`.
 - The portrait is `public/images/yatharth.webp`: a cut-out with a transparent background, 4:5. Replace it and the particles are regenerated in the browser from the new photo.
-- The resume button appears on the live site once `public/Yatharth-Rathi-Resume.pdf` exists. In `npm run dev` it always shows, so the layout can be checked before the PDF is there.
+- The resume is written in `resume/resume.html`. `npm run resume` prints it to `public/Yatharth-Rathi-Resume.pdf` with an installed Chrome or Edge, so edit the HTML and rebuild rather than editing the PDF. `npm run resume -- "+91 ..."` also writes a copy with a phone number to `resume/private/`, which git ignores.
+- The resume button appears on the live site once that PDF exists. In `npm run dev` it always shows, so the layout can be checked before the PDF is there.
 - Page views are counted with Vercel Web Analytics (cookieless). It only loads on Vercel, and needs Web Analytics switched on in the project there.
 
 ## Contact

@@ -144,7 +144,7 @@ export const education = [
   {
     when: "2020 – 2024",
     degree: "B.Tech, Computer Science",
-    school: "Shri Ram Institute of Technology",
+    school: "Shri Ram Institute of Science and Technology, Jabalpur",
   },
 ] as const;
 
