@@ -9,7 +9,7 @@ This is the second version. The first was a small Next.js 15 site written in Jav
 ## What is on it
 
 - **Hero:** my portrait rendered as about 5,000 particles. The left half is colour tiles (frontend), the right half is monospace glyphs (backend). Push tiles across the divider and they turn into code; click to scatter and rebuild. Written by hand on a 2D canvas, no particle library.
-- **A working request:** the button on the frontend side sends a request to `/api/hello` across the portrait's API line. The terminal on the backend side logs how it is handled and answers with a greeting timed to the visitor's clock.
+- **A working request:** the button on the frontend side sends a simulated request to `/api/hello` across the portrait's API line (it runs in the browser; there is no real endpoint). The terminal on the backend side logs how it would be handled and answers with a greeting timed to the visitor's clock.
 - **Experience and education**, with client names kept private, and a resume download in the header.
 - **Projects:** two cards on the home page, each opening a full case study at `/projects/<slug>` with its own contents list and social preview image.
 - **Skills** laid out as layers of a stack, and a contact section.
