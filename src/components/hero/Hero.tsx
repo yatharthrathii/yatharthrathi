@@ -15,7 +15,7 @@ function Side({ side }: { side: "frontend" | "backend" }) {
         <span className={`eyebrow justify-center lg:justify-start ${isFront ? "text-coral-ink" : "text-leaf-ink"}`}>{s.label}</span>
       </Reveal>
       <Reveal intro delay={isFront ? 0.18 : 0.3}>
-        <h2 className={`font-serif text-[clamp(44px,4.9vw,84px)] font-black leading-[0.92] tracking-[-0.035em] ${isFront ? "mb-4" : ""}`}>
+        <h2 className={`font-serif text-[clamp(44px,4.9vw,84px)] font-black leading-[0.92] tracking-[-0.035em] ${isFront ? "mb-8 lg:mb-4" : ""}`}>
           {isFront ? (
             <SelectionFrame name="yatharth">{s.title}</SelectionFrame>
           ) : (

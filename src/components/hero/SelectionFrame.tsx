@@ -31,7 +31,7 @@ export function SelectionFrame({ children, name }: { children: ReactNode; name: 
         <span className={`${HANDLE} -bottom-1 -right-1`} />
         <span
           ref={dimRef}
-          className="absolute left-1/2 top-[calc(100%+7px)] -translate-x-1/2 whitespace-nowrap rounded-[3px] bg-coral-ink px-1.5 py-[3px] font-mono text-[10px] font-medium leading-none tracking-normal text-white opacity-0 transition-opacity"
+          className="absolute left-0 top-[calc(100%+7px)] whitespace-nowrap lg:left-1/2 lg:-translate-x-1/2 rounded-[3px] bg-coral-ink px-1.5 py-[3px] font-mono text-[10px] font-medium leading-none tracking-normal text-white opacity-0 transition-opacity"
         />
         <span className="absolute right-[6%] top-[calc(100%-2px)] flex items-start">
           <svg width="13" height="15" viewBox="0 0 13 15" className="shrink-0">
