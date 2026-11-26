@@ -419,10 +419,10 @@ export function ParticlePortrait({ src, alt }: Props) {
         <span aria-hidden className="absolute bottom-0 right-0 top-[8%] w-1/2 rounded-tr-[90%_35%] bg-term" />
         <canvas ref={canvasRef} role="img" aria-label={alt} className="absolute inset-0 block size-full [--glyph-font:var(--font-jetbrains)]" />
       </div>
-      <span className="absolute right-[calc(50%+10px)] top-[3%] whitespace-nowrap rounded-md bg-white opacity-0 transition-opacity duration-500 group-data-ready:opacity-100 px-2 py-1.5 font-mono text-[11px] font-medium leading-none text-coral-ink shadow-[0_8px_20px_-12px_rgba(0,0,0,.3)]">
+      <span className="absolute right-[calc(50%+8px)] top-0 whitespace-nowrap rounded-md bg-white opacity-0 transition-opacity duration-500 group-data-ready:opacity-100 px-1.5 py-1 font-mono text-[10px] sm:right-[calc(50%+10px)] sm:top-[3%] sm:px-2 sm:py-1.5 sm:text-[11px] font-medium leading-none text-coral-ink shadow-[0_8px_20px_-12px_rgba(0,0,0,.3)]">
         components · <span ref={leftCount} className="inline-block min-w-[3.4ch] text-right tabular-nums">0</span>
       </span>
-      <span className="absolute left-[calc(50%+10px)] top-[3%] whitespace-nowrap rounded-md bg-term-2 opacity-0 transition-opacity duration-500 group-data-ready:opacity-100 px-2 py-1.5 font-mono text-[11px] font-medium leading-none text-[#8C97A8]">
+      <span className="absolute left-[calc(50%+8px)] top-0 whitespace-nowrap rounded-md bg-term-2 opacity-0 transition-opacity duration-500 group-data-ready:opacity-100 px-1.5 py-1 font-mono text-[10px] sm:left-[calc(50%+10px)] sm:top-[3%] sm:px-2 sm:py-1.5 sm:text-[11px] font-medium leading-none text-[#8C97A8]">
         glyphs · <span ref={rightCount} className="inline-block min-w-[3.4ch] text-right tabular-nums">0</span> <b className="font-normal text-mint">$</b>
       </span>
       <span aria-hidden className="pointer-events-none absolute bottom-[8%] left-1/2 top-0 w-[1.5px] -translate-x-1/2 bg-ink">
