@@ -42,10 +42,11 @@
         padding: 0;
       }
       :root {
-        --ink: #111318;
-        --muted: #3b4049;
-        --line: #c9ccd2;
-        --accent: #c8361b;
+        --ink: #0f1b2d;
+        --muted: #3d4a5c;
+        --line: #c3cfdf;
+        --accent: #1d4f91;
+        --navy: #12305a;
       }
       html {
         background: #e9eaed;
@@ -57,7 +58,7 @@
         padding: 9.5mm 12.5mm 6.5mm;
         background: #fff;
         color: var(--ink);
-        font: 9pt/1.4 "Inter", "Segoe UI", Arial, sans-serif;
+        font: 9pt/1.36 "Inter", "Segoe UI", Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         font-variant-ligatures: none;
         box-shadow: 0 10px 40px -20px rgba(17, 19, 24, 0.5);
@@ -78,16 +79,19 @@
 
       header {
         text-align: center;
+        padding-bottom: 1.8mm;
+        border-bottom: 1.2pt solid var(--accent);
       }
       header h1 {
         font: 800 25pt/1 "Playfair", Georgia, serif;
         letter-spacing: -0.02em;
+        color: var(--navy);
       }
       header .role {
         margin-top: 2mm;
         font-size: 10.5pt;
         font-weight: 600;
-        color: var(--muted);
+        color: var(--accent);
       }
       header .contact {
         margin-top: 1.3mm;
@@ -110,7 +114,7 @@
       }
 
       section {
-        margin-top: 3.2mm;
+        margin-top: 2.6mm;
       }
       h2 {
         display: flex;
@@ -143,6 +147,7 @@
       h3 {
         font-size: 10.2pt;
         font-weight: 600;
+        color: var(--navy);
       }
       .place,
       .when,
@@ -171,10 +176,18 @@
         padding-left: 0.6mm;
       }
       li::marker {
-        color: var(--muted);
+        color: var(--accent);
       }
       li + li {
         margin-top: 0.3mm;
+      }
+      li strong {
+        font-weight: 600;
+        color: var(--navy);
+      }
+      .out b {
+        font-weight: 600;
+        color: var(--accent);
       }
       .tech {
         margin-top: 1mm;
@@ -224,9 +237,9 @@
     <section>
       <h2>Summary</h2>
       <p>
-        Full Stack Developer with 1+ years of experience in TypeScript, Node.js (NestJS), React and Next.js with PostgreSQL. Built flight and hotel
-        booking platforms and a multi-tenant HR and payroll SaaS end to end, from the UI to REST and tRPC APIs, supplier integrations and
-        background jobs. Earlier led a four-person React Native team.
+        Full Stack Developer with 1+ years of experience in TypeScript, Node.js (NestJS), React and Next.js with PostgreSQL. Ships features
+        on two live travel platforms, from booking UI to payment-failure fixes, cancellations and background jobs, and built modules for a
+        multi-tenant HR and payroll SaaS. Earlier hired and led a four-person React Native team.
       </p>
     </section>
 
@@ -247,13 +260,14 @@
           <span class="when">Apr 2026 – Oct 2026</span>
         </div>
         <ul>
-          <li>Built the first online booking channel for a travel company that had sold only offline: flight and hotel search, seat and meal selection, traveller details, payment and confirmation, in Next.js and NestJS.</li>
-          <li>Integrated 10+ GDS supplier operations (search, fare rules, booking, ticketing, cancellation), and wrote the largest share of the flight booking service: payment, airline booking and automatic refund on failure.</li>
-          <li>Designed booking holds, full and partial cancellation, and abandoned-booking recovery via WhatsApp and email, so unfinished bookings are followed up instead of lost.</li>
-          <li>Created 7 backend modules, including the admin bookings console (15 endpoints) and push alerts for the staff PWA; also built a CMS with branding and access control for a B2B group-travel platform.</li>
-          <li>For a multi-tenant HR and payroll SaaS, built the performance-review module, the platform admin console and subscription billing with GST invoices, using Next.js, tRPC and PostgreSQL Row-Level Security.</li>
-          <li>Tested that product end to end and fixed what it found, including salary proration for mid-month joiners, a cross-tenant admin takeover and a role escalation.</li>
-          <li>Wrote 150+ Jest and Vitest test files and 28 database migrations across the three products.</li>
+          <li><strong>Booking website:</strong> built most of the flight and hotel booking UI and co-built the NestJS API for a travel company's first online booking channel, live since Aug 2026.</li>
+          <li><strong>Payment failure root cause:</strong> a live booking was charged ₹69,038 with no ticket issued; traced it to a stale supplier fare reference, wrote the RCA and shipped the fix with regression tests.</li>
+          <li><strong>Cancellations and holds:</strong> built full and partial cancellation, polling the supplier with backoff (5 min to 6 h) as it has no webhook, plus seat and price holds.<br /><span class="out"><b>Outcome:</b> travellers see "cancelled" only after the airline confirms, and two buyers can no longer hold the same seat.</span></li>
+          <li><strong>Payments and reliability:</strong> fixed round trips refunding the full fare after one leg ticketed, built pay-then-hold refunds where only "book" or "refund" can win, and put 10 scheduled jobs behind one on/off switch with an audit trail.</li>
+          <li><strong>Staff tools:</strong> 7 backend modules (47 REST endpoints), incl. the admin bookings console, abandoned-booking recovery by WhatsApp and email, and lock-screen call alerts on the staff PWA.</li>
+          <li><strong>B2B travel CMS (live):</strong> page editor with 32 section types, blog, landing pages that record each lead's source, 19 editable email templates and an approval workflow (63 REST endpoints).<br /><span class="out"><b>Outcome:</b> shipped the blog, landing pages, sitemap and emails the client contract had listed as missing.</span></li>
+          <li><strong>HR and payroll SaaS:</strong> built performance reviews, admin console and GST billing (81 tRPC procedures, Postgres RLS); testing fixed ₹0 TDS for all staff, paid leave cut as unpaid, a cross-tenant takeover and a role escalation.</li>
+          <li><strong>Testing:</strong> 150+ test files (1,200+ cases in the booking platform) and 28 database migrations across three products.</li>
         </ul>
         <p class="tech"><b>Tech:</b> TypeScript, Node.js, NestJS, Next.js, React, tRPC, PostgreSQL, Prisma, Drizzle ORM, Redis, Zod, Docker</p>
       </div>
@@ -272,10 +286,9 @@
           <span class="when">Sep 2025 – Nov 2025</span>
         </div>
         <ul>
-          <li>Built a React Native app for patients, delivery partners and medical stores: prescription upload, ordering and JWT auth.</li>
-          <li>Interviewed and hired four developers for the mobile team, then led them day to day.</li>
-          <li>Set the technical direction of the app: component structure, state management patterns and API conventions.</li>
-          <li>Shipped an LLM-powered chatbot for health queries and live map-based delivery tracking.</li>
+          <li>Built one React Native app for patients, delivery partners and medical stores: prescription upload, ordering, JWT auth.</li>
+          <li>Interviewed and hired four developers, set the component structure and API conventions, and led the team.</li>
+          <li>Built an LLM-powered health chatbot and live map-based delivery tracking.</li>
         </ul>
         <p class="tech"><b>Tech:</b> React Native, Expo, TypeScript, Redux Toolkit</p>
       </div>
@@ -293,8 +306,9 @@
           </span>
         </div>
         <ul>
-          <li>Built a spaced-repetition flashcard app: wrote the FSRS-6 scheduling algorithm by hand, with no runtime dependencies, and verified it against the reference library on 19,000 generated cases.</li>
-          <li>Added AI card drafting through an LLM API (Groq), offline review sync that cannot apply an answer twice, rotating refresh tokens with Argon2id, and 300+ tests (Vitest, Playwright) in GitHub Actions.</li>
+          <li>Built a spaced-repetition flashcard app: wrote the FSRS-6 scheduling algorithm by hand, with no runtime dependencies, and verified it against the reference library with 19,000 generated property-based cases.</li>
+          <li>Added Groq LLM card drafting, idempotent offline sync and rotating refresh tokens with Argon2id.</li>
+          <li>390+ tests (Vitest, Playwright) in GitHub Actions against real PostgreSQL, with Lighthouse (100 on accessibility, best practices and SEO) and bundle-size gates; uptime checked every 30 min.</li>
         </ul>
       </div>
 
@@ -304,8 +318,7 @@
           <span class="links"><a href="https://github.com/yatharthrathii/build-or-break">github.com/yatharthrathii/build-or-break</a></span>
         </div>
         <ul>
-          <li>Built an Android routine app on a pure-Kotlin scheduling engine that recomputes the day when a step runs late.</li>
-          <li>Made alarms survive reboots, updates and clock changes with a four-tier fallback; 650+ tests across 11 Gradle modules.</li>
+          <li>Android routine app whose pure-Kotlin engine recomputes the day when a step runs late; 650+ tests in 11 modules.</li>
         </ul>
       </div>
     </section>
@@ -313,11 +326,10 @@
     <section>
       <h2>Skills</h2>
       <div class="skills">
-        <p><b>Languages:</b> TypeScript, JavaScript (ES6+), SQL, Kotlin, HTML5, CSS3</p>
-        <p><b>Frontend:</b> React.js, Next.js (App Router), Redux Toolkit, TanStack Query, Tailwind CSS, shadcn/ui</p>
+        <p><b>Languages:</b> TypeScript, JavaScript (ES6+), SQL, Kotlin</p>
+        <p><b>Frontend and mobile:</b> React.js, Next.js (App Router), Redux Toolkit, TanStack Query, Tailwind CSS, React Native, Expo</p>
         <p><b>Backend:</b> Node.js, NestJS, Express.js, REST APIs, tRPC, JWT, OAuth, Zod, background jobs, LLM API integration</p>
         <p><b>Databases:</b> PostgreSQL, Prisma, Drizzle ORM, Redis, Firebase</p>
-        <p><b>Mobile:</b> React Native, Expo, Jetpack Compose</p>
         <p><b>Testing and DevOps:</b> Jest, Vitest, Playwright, Docker, GitHub Actions (CI/CD), Git</p>
       </div>
     </section>
